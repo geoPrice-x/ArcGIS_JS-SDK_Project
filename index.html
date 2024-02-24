@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>
+            My First JS Map
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css">
+        <style>
+            html,
+            body,
+            #viewDiv {
+                padding: 0;
+                margin: 0;
+                height: 100%;
+                width: 100%;
+            }
+        </style>
+        
+        <script src="https://js.arcgis.com/4.28"></script>
+        <script>
+            require([
+                "esri/config", 
+                "esri/Map", 
+                "esri/views/MapView", 
+                "esri/layers/FeatureLayer"
+            ], (esriConfig, Map, MapView, FeatureLayer) => {
+                
+                // esriConfig.apiKey = "AAPKd7caa68b27e24673a4b0e6f76195a7cauDgqtMuQh_QBP2jO3ull7yu6wk9ZEx-t8moxyleXfJ1ddHWdz36j6f7ggcYezmXA"
+                
+                const map = new Map({
+                    basemap: "hybrid"
+                });
+
+                const view = new MapView({
+                    container: "viewDiv",
+                    map: map,
+                    zoom: 15,
+                    center: [-122.4812, 48.7345]
+                });
+
+                const trails = new FeatureLayer({
+                    portalItem: {
+                        id: "5f18110f9bbf477ab9fbdec524231290"
+                    }
+                });
+
+                const Layers = Array();
+                    Layers.push(trails);
+
+                map.addMany(Layers);
+            });
+        </script>
+    </head>
+
+    <body>
+
+        <div id="viewDiv"></div>
+
+        <span id="layerToggle" class="esri-widget">
+            <input type="checkbox" id="streetsLayer" checked/> Transportation 
+        </span>
+
+    </body>
+
+</html>
